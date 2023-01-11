@@ -3,12 +3,16 @@ const dataJSON = require('./../data.json')
 const { getAsset } = require('./query')
 
 class Bot {
+    constructor () {
+        this.active = true
+    }
     async work() {
         const currentDate = new Date(dataJSON.recent_save)
         if(this.checkNewMonth(currentDate)) {
             wipeData()
         }
         if(this.checkNewDay(currentDate)) {
+            console.log("running...")
             let result = await getAsset() 
             store(result)
         }
@@ -16,7 +20,7 @@ class Bot {
 
     checkNewDay(dateLast) {
         const current = new Date()
-        if (current.getDate() === dateLast.getDate()) {
+        if (current.getMinutes() == dateLast.getMinutes()) {
             //it's the same day
             return false
         } else {
