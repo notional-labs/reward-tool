@@ -16,10 +16,6 @@ jobs:
 
     - name: Update the repo from web server
       uses: appleboy/ssh-action@v0.1.4      
-      env:
-        NODE_OPTIONS: --openssl-legacy-provider
-        CI: false
-
       with:
         host: ${{ secrets.SERVER }}
         username: ${{ secrets.USERNAME }}
