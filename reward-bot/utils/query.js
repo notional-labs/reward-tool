@@ -2,6 +2,10 @@ const { setupDistributionExtension, QueryClient } =  require("@cosmjs/stargate")
 const { Tendermint34Client } = require("@cosmjs/tendermint-rpc");
 const { chainData } = require('../storage/chainData')
 
+require('dotenv').config()
+const rpcString = process.env.RPC_INTERNAL
+
+
 const getRewards = async (rpc, address) => {
     try {
         const tendermint = await Tendermint34Client.connect(rpc)
