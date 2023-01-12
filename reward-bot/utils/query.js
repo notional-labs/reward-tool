@@ -4,6 +4,7 @@ const { chainData } = require('../storage/chainData')
 
 require('dotenv').config()
 const rpcString = process.env.RPC_INTERNAL
+console.log(rpcString)
 
 
 const getRewards = async (rpc, address) => {
