@@ -21,7 +21,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PRIV_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
-        envs: CI, NODE_OPTIONS
         script: |
           export PATH=/root/.nvm/versions/node/v19.4.0/bin/:$PATH
           cd ~/reward-tool
