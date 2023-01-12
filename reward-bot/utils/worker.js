@@ -8,9 +8,9 @@ class Bot {
     }
     async work() {
         const currentDate = new Date(dataJSON.recent_save)
-        if(this.checkNewMonth(currentDate)) {
-            wipeData()
-        }
+        // if(this.checkNewMonth(currentDate)) {
+        //     wipeData()
+        // }
         if(this.checkNewDay(currentDate)) {
             console.log("running...")
             let result = await getAsset() 
@@ -20,7 +20,7 @@ class Bot {
 
     checkNewDay(dateLast) {
         const current = new Date()
-        if (current.getMinutes() == dateLast.getMinutes()) {
+        if (current.getDate() == dateLast.getDate()) {
             //it's the same day
             return false
         } else {
