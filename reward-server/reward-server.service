@@ -3,6 +3,7 @@ Description = Running Server
 
 [Service]
 Type = simple
+WorkingDirectory=/root/reward-tool/reward-server/
 ExecStart = /root/.nvm/versions/node/v19.4.0/bin/node /root/reward-tool/reward-server/index.js
 Restart = always
 User = root

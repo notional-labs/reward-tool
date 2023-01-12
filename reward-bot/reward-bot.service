@@ -3,6 +3,7 @@ Description = Running Bot
 
 [Service]
 Type = simple
+WorkingDirectory=/root/reward-tool/reward-bot/
 ExecStart = /root/.nvm/versions/node/v19.4.0/bin/node /root/reward-tool/reward-bot/index.js
 Restart = always
 User = root
