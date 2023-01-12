@@ -19,6 +19,7 @@ jobs:
       env:
         NODE_OPTIONS: --openssl-legacy-provider
         CI: false
+
       with:
         host: ${{ secrets.SERVER }}
         username: ${{ secrets.USERNAME }}
@@ -26,6 +27,7 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         envs: CI, NODE_OPTIONS
         script: |
+        export PATH=/root/.nvm/versions/node/v19.4.0/bin/:$PATH
           cd ~/reward-tool
           git stash save --keep-index --include-untracked
           git pull
