@@ -1,0 +1,12 @@
+[Unit]
+Description = Running Server
+
+[Service]
+Type = simple
+ExecStart = /root/.nvm/versions/node/v19.4.0/bin/node /root/reward-tool/reward-server/index.js
+Restart = always
+User = root
+RestartSec = 3
+
+[Install]
+WantedBy = multi-user.target

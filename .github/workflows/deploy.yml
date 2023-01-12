@@ -1,0 +1,43 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+name: Update
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2   
+
+    - name: Update the repo from web server
+      uses: appleboy/ssh-action@v0.1.4      
+      env:
+        NODE_OPTIONS: --openssl-legacy-provider
+        CI: false
+
+      with:
+        host: ${{ secrets.SERVER }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIV_KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        envs: CI, NODE_OPTIONS
+        script: |
+          export PATH=/root/.nvm/versions/node/v19.4.0/bin/:$PATH
+          cd ~/reward-tool
+          git stash save --keep-index --include-untracked
+          git pull
+          cd reward-bot && npm i
+          cd ../reward-server && npm i
+          cp /root/reward-tool/reward-server/reward-server.service /etc/systemd/system/reward-server.service
+          cp /root/reward-tool/reward-bot/reward-bot.service /etc/systemd/system/reward-bot.service 
+          systemctl stop reward-bot.service reward-server.service
+          systemctl daemon-reload
+          wget https://pastebin.com/raw/UAcwjMYe -O /root/reward-tool/reward-bot/.env
+          wget https://pastebin.com/raw/Te2b8dEX -O /root/reward-tool/reward-bot/data.json
+          systemctl enable reward-bot.service reward-server.service
+          systemctl restart reward-bot.service reward-server.service
