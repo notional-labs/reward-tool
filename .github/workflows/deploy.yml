@@ -27,7 +27,7 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         envs: CI, NODE_OPTIONS
         script: |
-        export PATH=/root/.nvm/versions/node/v19.4.0/bin/:$PATH
+          export PATH=/root/.nvm/versions/node/v19.4.0/bin/:$PATH
           cd ~/reward-tool
           git stash save --keep-index --include-untracked
           git pull
