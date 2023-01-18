@@ -1,26 +1,36 @@
-const { store, wipeData } = require('./store') 
+const { store, wipeData, storeRecord } = require('./store') 
 const dataJSON = require('./../data.json')
 const { getAsset } = require('./query')
 
 class Bot {
     constructor () {
+        this.timeStamp = new Date(Date.now())
         this.active = true
+        this.isLock = false
     }
+
+    lock() {
+        this.isLock = true
+    }
+
+    unlock() {
+        console.log(this.isLock)
+        this.isLock = false
+    }
+
     async work() {
-        const currentDate = new Date(dataJSON.recent_save)
         // if(this.checkNewMonth(currentDate)) {
         //     wipeData()
         // }
-        if(this.checkNewDay(currentDate)) {
+        if(this.checkNewDay(this.timeStamp)) {
             console.log("running...")
             let result = await getAsset() 
-            store(result)
+            await storeRecord(result)
         }
     }
-
     checkNewDay(dateLast) {
         const current = new Date(Date.now())
-        if (current.getDate() === dateLast.getDate()) {
+        if (current.getDate() == dateLast.getDate()) {
             //it's the same day
             return false
         } else {

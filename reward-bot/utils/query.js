@@ -1,9 +1,17 @@
-const { setupDistributionExtension, QueryClient } =  require("@cosmjs/stargate");
+const { setupDistributionExtension, QueryClient } = require("@cosmjs/stargate");
 const { Tendermint34Client } = require("@cosmjs/tendermint-rpc");
 const { chainData } = require('../storage/chainData')
+const axios = require('axios')
 
 require('dotenv').config()
 const rpcString = process.env.RPC_INTERNAL
+
+const graphqlReq = axios.create({
+    baseURL: "https://graphql.fauna.com/graphql",
+    headers: {
+        Authorization: `Bearer ${process.env.FAUNADB_SECRET}`,
+    },
+});
 
 const getRewards = async (rpc, address) => {
     try {
@@ -18,6 +26,53 @@ const getRewards = async (rpc, address) => {
     }
 }
 
+module.exports.getRecords = async () => {
+    const res = await graphqlReq({
+        method: "POST",
+        data: {
+            query: `
+                query{
+                    getRecords {
+                        data {
+                            id,
+                            date,
+                            rewards,
+                            total
+                        }
+                    }
+                }
+              `
+        },
+    })
+    return res.data
+}
+
+module.exports.createRecords = async (dataString, total) => {
+    const current = new Date(Date.now())
+    const res = await graphqlReq({
+        method: "POST",
+        data: {
+            query: `
+                mutation{
+                    createRecord(
+                        data: {
+                            date: "${current.toString()}",
+                            rewards: """${dataString}""",
+                            total: ${total}
+                        }
+                    ) {
+                            date,
+                            rewards,
+                            total
+                    }
+                }
+              `
+        },
+    })
+    return res.data
+}
+
+
 module.exports.getAsset = async () => {
     try {
         let assets = {}
@@ -28,7 +83,7 @@ module.exports.getAsset = async () => {
                 let res = await getRewards(rpc, chainData[key].address)
                 assets[`${chainData[key].name}`] = res
             }
-            catch(e) {
+            catch (e) {
                 assets[`${chainData[key].name}`] = {}
                 assets[`${chainData[key].name}`].err = e.message
             }
@@ -39,3 +94,4 @@ module.exports.getAsset = async () => {
         console.log(e.message)
     }
 }
+

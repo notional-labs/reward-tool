@@ -1,0 +1,16 @@
+type Record {
+    date: String!
+    rewards: String!
+    total: Int!
+}
+
+type TimeStamp {
+    id: Int!
+    recent: String!
+}
+
+type Query {
+  getRecord(date: String!): Record
+  getRecords: [Record]
+  get
+}

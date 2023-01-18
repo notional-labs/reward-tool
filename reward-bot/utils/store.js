@@ -1,7 +1,8 @@
 const fs = require('fs');
 const { formatReward } = require('./formatter')
+const {createRecords} = require('./query')
 
-module.exports.store = (newData) => {
+function store (newData, callback) {
     fs.readFile('./data.json', async (err, data) => {
         if (err) {
             console.log(err.message)
@@ -21,10 +22,19 @@ module.exports.store = (newData) => {
                 if (err) {
                     console.log(err.message)
                 }
+                callback()
             })
         }, 10000)
     });
 }
+
+const storeRecord = async (newData) => {
+    const {newRewards, sum} = await formatReward(newData)
+    await createRecords(JSON.stringify(newRewards), parseInt(sum))
+}
+
+module.exports.store = store
+module.exports.storeRecord = storeRecord
 
 module.exports.wipeData = () => {
     fs.readFile('./data.json', (err, data) => {
