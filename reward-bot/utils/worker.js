@@ -1,5 +1,4 @@
-const { store, wipeData, storeRecord } = require('./store')
-const dataJSON = require('./../data.json')
+const { storeRecord } = require('./store')
 const { getAsset } = require('./query')
 
 class Bot {
@@ -25,8 +24,8 @@ class Bot {
         if (this.checkNewDay(this.timeStamp)) {
             console.log("running...")
             let result = await getAsset()
-            await storeRecord(result)
             this.timeStamp = new Date(Date.now())
+            await storeRecord(result)
         }
     }
     checkNewDay(dateLast) {

@@ -17,47 +17,52 @@ const SI_prefix = {
 var queryString = 'https://api.coingecko.com/api/v3/simple/price?include_24hr_change=false&vs_currencies=usd&ids=agoric,stride-staked-atom,akash-network,darc,omniflix-network,konstellation,axelar,usd-coin,tether,bostrom,dai,wei,matic-network,avalanche-2,polkadot,band-protocol,bzedge,bitcanna,bitsong,switcheo,cerberus-2,cheqd-network,chihuahua-token,comdex,cosmos,crescent-network,crypto-com-chain,decentr,desmos,dig-chain,echelon,emoney,e-money-eur,evmos,fetch-ai,injective-protocol,iris-network,ixo,jackal,juno-network,kava,ki,kujira,lambda,likecoin,lum-network,nym,odin-protocol,geodb,osmosis,ion,somm,persistence,point-network,provenance-blockchain,rebus,regen,rizon,secret,sentinel,certik,sifchain,stafi,stafi-ratom,stargaze,starname,stride,teritori,terra-luna,terrausd,terrakrw,white-whale,terra-luna-2,umee,unification,vidulum'
 
 module.exports.formatReward = async (rewards) => {
-    let newRewards = {}
-    const res = await axios.get(queryString)
-    const usdRates = res.data
-    let sum = 0
-    for (var key in rewards) {
-        let newTotal = []
-        if (rewards[key].err) {
+    try {
+        let newRewards = {}
+        const res = await axios.get(queryString)
+        const usdRates = res.data
+        let sum = 0
+        for (var key in rewards) {
+            let newTotal = []
+            if (rewards[key].err) {
+                newRewards[key] = {
+                    err: rewards[key].err
+                }
+                continue
+            }
+            let api = chainData[key].api_service
+            rewards[key].total.map(async total => {
+                let newDenom
+                if (total.denom.substring(0, 3) === "ibc" && api !== null) {
+                    newDenom = await getDenom(api, total.denom.substring(4))
+                }
+                else {
+                    newDenom = total.denom
+                }
+                const displayDenom = getDisplayDenom(newDenom)
+                if (newDenom && newDenom !== 'unknown' && displayDenom !== 'unknown') {
+                    const value = (getValueFromDenom(newDenom, total.amount)).toFixed(2)
+                    const id = denomToId[displayDenom]
+                    const rate = usdRates[id] ? (usdRates[id].usd && usdRates[id].usd.value) ? 0 : usdRates[id].usd || 0 : 0
+                    newTotal.unshift({
+                        denom: displayDenom,
+                        amount: value,
+                        usd: (rate * value).toFixed(2)
+                    })
+                    sum += parseFloat(rate * value)
+                }
+            })
             newRewards[key] = {
-                err: rewards[key].err
+                total: newTotal
             }
-            continue
         }
-        let api = chainData[key].api_service
-        rewards[key].total.map(async total => {
-            let newDenom
-            if (total.denom.substring(0, 3) === "ibc" && api !== null) {
-                newDenom = await getDenom(api, total.denom.substring(4))
-            }
-            else {
-                newDenom = total.denom
-            }
-            const displayDenom = getDisplayDenom(newDenom)
-            if (newDenom && newDenom !== 'unknown' && displayDenom !== 'unknown') {
-                const value = (getValueFromDenom(newDenom, total.amount)).toFixed(2)
-                const id = denomToId[displayDenom]
-                const rate = usdRates[id] ? ( usdRates[id].usd && usdRates[id].usd.value ) ? 0 : usdRates[id].usd || 0  : 0
-                newTotal.unshift({
-                    denom: displayDenom,
-                    amount: value,
-                    usd: (rate * value).toFixed(2)
-                })
-                sum += parseFloat(rate * value)
-            }
-        })
-        newRewards[key] = {
-            total: newTotal
+        return {
+            newRewards,
+            sum
         }
     }
-    return {
-        newRewards,
-        sum
+    catch (e) {
+        throw e
     }
 }
 
