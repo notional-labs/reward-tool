@@ -121,7 +121,7 @@ module.exports.chainData = {
         address: "emoney16dc379m0qj64g4pr4nkl7ewak52qy2srxeutcv",
         hexAddr: "0F582D2C490BE99DF9D11AF4335567861700C0B8",
         prefixValCons: "emoneyvalcons",
-        ping: "e-money-eur",
+        ping: "e-money",
         mintscan: "emoney",
     },
     evmos: {
@@ -441,7 +441,7 @@ module.exports.denomToId = {
     "cheq": "cheqd-network",
     "huahua": "chihuahua-token",
     "boot": "bostrom",
-    "ngm": "e-money-eur",
+    "ngm": "e-money",
     "evmos": "evmos",
     "fet": "fetch-ai",
     "inj": "injective-protocol",

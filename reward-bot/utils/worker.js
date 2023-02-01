@@ -28,6 +28,7 @@ class Bot {
             await storeRecord(result)
         }
     }
+
     checkNewDay(dateLast) {
         const current = new Date(Date.now())
         if (current.getDay() == dateLast.getDay()) {
