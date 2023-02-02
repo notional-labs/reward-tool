@@ -1,4 +1,4 @@
-const { specialDenom, chainData, denomToId } = require('../storage/chainData')
+const { specialDenom, denomToId, data } = require('../storage/chainData')
 const axios = require('axios')
 
 const SI_prefix = {
@@ -30,7 +30,7 @@ module.exports.formatReward = async (rewards) => {
                 }
                 continue
             }
-            let api = chainData[key].api_service
+            let api = data[key].api_service
             rewards[key].total.map(async total => {
                 let newDenom
                 if (total.denom.substring(0, 3) === "ibc" && api !== null) {

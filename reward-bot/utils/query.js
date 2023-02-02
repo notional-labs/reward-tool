@@ -1,6 +1,6 @@
 const { setupDistributionExtension, QueryClient } = require("@cosmjs/stargate");
 const { Tendermint34Client } = require("@cosmjs/tendermint-rpc");
-const { chainData } = require('../storage/chainData')
+const { chainData, data } = require('../storage/chainData')
 const axios = require('axios')
 
 require('dotenv').config()
@@ -77,15 +77,15 @@ module.exports.getAsset = async () => {
     try {
         let assets = {}
         const rpcs = rpcString.split(',')
-        for (let key in chainData) {
+        for (let key in data) {
             try {
-                const rpc = rpcs[chainData[key].id]
-                let res = await getRewards(rpc, chainData[key].address)
-                assets[`${chainData[key].name}`] = res
+                const rpc = rpcs[data[key].id]
+                let res = await getRewards(rpc, data[key].address)
+                assets[`${data[key].name}`] = res
             }
             catch (e) {
-                assets[`${chainData[key].name}`] = {}
-                assets[`${chainData[key].name}`].err = e.message
+                assets[`${data[key].name}`] = {}
+                assets[`${data[key].name}`].err = e.message
             }
         }
         return assets
