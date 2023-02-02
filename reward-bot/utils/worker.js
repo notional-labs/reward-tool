@@ -31,7 +31,7 @@ class Bot {
 
     checkNewDay(dateLast) {
         const current = new Date(Date.now())
-        if (current.getMinutes() == dateLast.getMinutes()) {
+        if (current.getHours() == dateLast.getHours()) {
             //it's the same day
             return false
         } else {
