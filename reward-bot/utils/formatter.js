@@ -23,7 +23,9 @@ module.exports.formatReward = async (rewards) => {
         const usdRates = res.data
         let sum = 0
         for (var key in rewards) {
-            let newTotal = []
+            let newTotal = {}
+            newTotal.reward = []
+            newTotal.commission = []
             if (rewards[key].err) {
                 newRewards[key] = {
                     err: rewards[key].err
@@ -31,7 +33,7 @@ module.exports.formatReward = async (rewards) => {
                 continue
             }
             let api = data[key].api_service
-            rewards[key].total.map(async total => {
+            rewards[key].reward && rewards[key].reward.total.map(async total => {
                 let newDenom
                 if (total.denom.substring(0, 3) === "ibc" && api !== null) {
                     newDenom = await getDenom(api, total.denom.substring(4))
@@ -44,7 +46,28 @@ module.exports.formatReward = async (rewards) => {
                     const value = (getValueFromDenom(newDenom, total.amount)).toFixed(2)
                     const id = denomToId[displayDenom]
                     const rate = usdRates[id] ? (usdRates[id].usd && usdRates[id].usd.value) ? 0 : usdRates[id].usd || 0 : 0
-                    newTotal.unshift({
+                    newTotal.reward.unshift({
+                        denom: displayDenom,
+                        amount: value,
+                        usd: (rate * value).toFixed(2)
+                    })
+                    sum += parseFloat(rate * value)
+                }
+            })
+            rewards[key].commission && rewards[key].commission.map(async total => {
+                let newDenom
+                if (total.denom.substring(0, 3) === "ibc" && api !== null) {
+                    newDenom = await getDenom(api, total.denom.substring(4))
+                }
+                else {
+                    newDenom = total.denom
+                }
+                const displayDenom = getDisplayDenom(newDenom)
+                if (newDenom && newDenom !== 'unknown' && displayDenom !== 'unknown') {
+                    const value = (getValueFromDenom(newDenom, total.amount)).toFixed(2)
+                    const id = denomToId[displayDenom]
+                    const rate = usdRates[id] ? (usdRates[id].usd && usdRates[id].usd.value) ? 0 : usdRates[id].usd || 0 : 0
+                    newTotal.commission.unshift({
                         denom: displayDenom,
                         amount: value,
                         usd: (rate * value).toFixed(2)
@@ -53,7 +76,7 @@ module.exports.formatReward = async (rewards) => {
                 }
             })
             newRewards[key] = {
-                total: newTotal
+                total: newTotal,
             }
         }
         return {

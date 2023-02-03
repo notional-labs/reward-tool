@@ -436,6 +436,7 @@ module.exports.data = {
     'akash-validator': {
         id: 0,
         address: 'akash1083svrca4t350mphfv9x45wq9asrs60c956m2m',
+        valAddr: 'akashvaloper1083svrca4t350mphfv9x45wq9asrs60c0k5a63',
         key: 'akash',
         name: 'akash-validator',
         rpc_service: "https://rpc-akash-ia.cosmosia.notional.ventures/",
@@ -444,6 +445,7 @@ module.exports.data = {
     'atom-validator': {
         id: 4,
         address: 'cosmos1083svrca4t350mphfv9x45wq9asrs60cg0hunp',
+        valAddr: 'cosmosvaloper1083svrca4t350mphfv9x45wq9asrs60cdmrflj',
         key: 'atom',
         name: 'atom-validator',
         rpc_service: "https://rpc-cosmoshub-ia.cosmosia.notional.ventures/",
@@ -452,6 +454,7 @@ module.exports.data = {
     'bitsong-validator': {
         id: 2,
         address: 'bitsong1je872m97uce2ttztkh8pdx6zezw5kr03vkdke5',
+        valAddr: 'bitsongvaloper1je872m97uce2ttztkh8pdx6zezw5kr03dj3lff',
         key: 'bitsong',
         name: 'bitsong-validator',
         rpc_service: "https://rpc-bitsong-ia.cosmosia.notional.ventures/",
@@ -460,6 +463,7 @@ module.exports.data = {
     'bitcanna-validator': {
         id: 3,
         address: 'bcna1dl7w3myyfmnarh0t5uxmy7qe6szagz3ka2nq42',
+        valAddr: 'bcnavaloper1dl7w3myyfmnarh0t5uxmy7qe6szagz3kyhzq07',
         key: 'bitcanna',
         name: 'bitcanna-validator',
         rpc_service: "https://rpc-bitcanna-ia.cosmosia.notional.ventures/",
@@ -468,6 +472,7 @@ module.exports.data = {
     'cheq-validator': {
         id: 5,
         address: 'cheqd1gyjqlfkrggd0uyd748fw9y5kq9xzmjqqgdenpy',
+        valAddr: 'cheqdvaloper1gyjqlfkrggd0uyd748fw9y5kq9xzmjqqh8848x',
         key: 'cheq',
         name: 'cheq-validator',
         rpc_service: "https://rpc-cheqd-ia.cosmosia.notional.ventures/",
@@ -476,6 +481,7 @@ module.exports.data = {
     'chihuahua-validator': {
         id: 6,
         address: 'chihuahua1h6vcu4r2hx70x5f0l3du3ey2g98u9ut2c2fwqs',
+        valAddr: 'chihuahuavaloper1h6vcu4r2hx70x5f0l3du3ey2g98u9ut2tafnnv',
         key: 'chihuahua',
         name: 'chihuahua-validator',
         rpc_service: "https://rpc-chihuahua-ia.cosmosia.notional.ventures/",
@@ -484,6 +490,7 @@ module.exports.data = {
     'cyber-validator': {
         id: 7,
         address: 'bostrom1g65rmjkeuy5rywx04s4fvwfylmlz98vqdj9qrh',
+        valAddr: 'bostromvaloper1g65rmjkeuy5rywx04s4fvwfylmlz98vq4gzln5',
         key: 'cyber',
         name: 'cyber-validator',
         rpc_service: "https://rpc-cyber-ia.cosmosia.notional.ventures/",
@@ -492,6 +499,7 @@ module.exports.data = {
     'emoney-validator': {
         id: 8,
         address: 'emoney16dc379m0qj64g4pr4nkl7ewak52qy2srxeutcv',
+        valAddr: 'emoneyvaloper16dc379m0qj64g4pr4nkl7ewak52qy2srpe6lxp',
         key: 'e-money',
         name: 'emoney-validator',
         rpc_service: "https://rpc-emoney-ia.cosmosia.notional.ventures/",
@@ -500,6 +508,7 @@ module.exports.data = {
     'evmos-validator': {
         id: 9,
         address: 'evmos1rv94jqhlhx6makfwl6qs390e4shg32m6r5zkre',
+        valAddr: 'evmosvaloper1rv94jqhlhx6makfwl6qs390e4shg32m6w6dxzy',
         key: 'evmos',
         name: 'evmos-validator',
         rpc_service: "https://rpc-evmos-ia.cosmosia.notional.ventures/",
@@ -508,6 +517,7 @@ module.exports.data = {
     'fetch.AI-validator': {
         id: 10,
         address: 'fetch1s9myentgxavnpw7648an2v6zvvpza0axc7jwup',
+        valAddr: 'fetchvaloper1s9myentgxavnpw7648an2v6zvvpza0axa6dd0x',
         key: 'fetch.AI',
         name: 'fetch.AI-validator',
         rpc_service: "https://rpc-fetchhub-ia.cosmosia.notional.ventures/",
@@ -516,6 +526,7 @@ module.exports.data = {
     'injective-validator': {
         id: 11,
         address: 'inj16eg6wf2k6v0lzwu2vsrhxhe0tcycgr7jvrjk9x',
+        valAddr: 'injvaloper16eg6wf2k6v0lzwu2vsrhxhe0tcycgr7jm98nyz',
         key: 'injective',
         name: 'injective-validator',
         rpc_service: "https://rpc-injective-ia.cosmosia.notional.ventures/",
@@ -524,6 +535,7 @@ module.exports.data = {
     'ixo-validator': {
         id: 12,
         address: 'ixo1083svrca4t350mphfv9x45wq9asrs60ch6fwhj',
+        valAddr: 'ixovaloper1083svrca4t350mphfv9x45wq9asrs60camel0h',
         key: 'ixo',
         name: 'ixo-validator',
         rpc_service: "https://rpc-ixo-ia.cosmosia.notional.ventures/",
@@ -532,6 +544,7 @@ module.exports.data = {
     'juno-validator': {
         id: 13,
         address: 'juno1083svrca4t350mphfv9x45wq9asrs60c7a585a',
+        valAddr: 'junovaloper1083svrca4t350mphfv9x45wq9asrs60cpqzg0y',
         key: 'juno',
         name: 'juno-validator',
         rpc_service: "https://rpc-juno-ia.cosmosia.notional.ventures/",
@@ -540,6 +553,7 @@ module.exports.data = {
     'kava-validator': {
         id: 14,
         address: 'kava13jyqfhak8mu4c7pydjm3eu4qla7g06a93vupll',
+        valAddr: 'kavavaloper13jyqfhak8mu4c7pydjm3eu4qla7g06a9u6xf8g',
         key: 'kava',
         name: 'kava-validator',
         rpc_service: "https://rpc-kava-ia.cosmosia.notional.ventures/",
@@ -548,6 +562,7 @@ module.exports.data = {
     'kichain-validator': {
         id: 15,
         address: 'ki1lmkzaxztjpesh0mf7qy76l5npqwc7fk3tdcfak',
+        valAddr: 'kivaloper1lmkzaxztjpesh0mf7qy76l5npqwc7fk3l2k57g',
         key: 'kichain',
         name: 'kichain-validator',
         rpc_service: "https://rpc-kichain-ia.cosmosia.notional.ventures/",
@@ -556,6 +571,7 @@ module.exports.data = {
     'likecoin-validator': {
         id: 17,
         address: 'like16dc379m0qj64g4pr4nkl7ewak52qy2sr6x6av2',
+        valAddr: 'likevaloper16dc379m0qj64g4pr4nkl7ewak52qy2srvfvrue',
         key: 'likecoin',
         name: 'likecoin-validator',
         rpc_service: "https://rpc-likecoin-ia.cosmosia.notional.ventures/",
@@ -564,6 +580,7 @@ module.exports.data = {
     'osmosis-validator': {
         id: 18,
         address: 'osmo1083svrca4t350mphfv9x45wq9asrs60cq5yv9n',
+        valAddr: 'osmovaloper1083svrca4t350mphfv9x45wq9asrs60c6rv0j5',
         key: 'osmosis',
         name: 'osmosis-validator',
         rpc_service: "https://rpc-osmosis-ia.cosmosia.notional.ventures/",
@@ -572,6 +589,7 @@ module.exports.data = {
     'omniflix-validator': {
         id: 19,
         address: 'omniflix15wshq6lmxmcn9vxky2mxf8zhstpn9ywmy2xhcu',
+        valAddr: 'omniflixvaloper15wshq6lmxmcn9vxky2mxf8zhstpn9ywmfc5ke5',
         key: 'omniflix',
         name: 'omniflix-validator',
         rpc_service: "https://rpc-omniflixhub-ia.cosmosia.notional.ventures/",
@@ -580,6 +598,7 @@ module.exports.data = {
     'passage-validator': {
         id: 20,
         address: 'pasg14npnd73z5qjwz4az2dpw6vcdvkj29qg0t5ht5w',
+        valAddr: 'pasgvaloper14npnd73z5qjwz4az2dpw6vcdvkj29qg0cgar4j',
         key: 'passage',
         name: 'passage-validator',
         rpc_service: "https://rpc-passage-ia.cosmosia.notional.ventures/",
@@ -588,6 +607,7 @@ module.exports.data = {
     'provenance-validator': {
         id: 21,
         address: 'pb10ap9fj9uq50cardmlzdj367kqg5x3ghjzkxumm',
+        valAddr: 'pbvaloper10ap9fj9uq50cardmlzdj367kqg5x3ghjdp2v6p',
         key: 'provenance',
         name: 'provenance-validator',
         rpc_service: "https://rpc-provenance-ia.cosmosia.notional.ventures/",
@@ -596,22 +616,16 @@ module.exports.data = {
     'regen-validator': {
         id: 22,
         address: 'regen1083svrca4t350mphfv9x45wq9asrs60chduq99',
+        valAddr: 'regenvaloper1083svrca4t350mphfv9x45wq9asrs60ct2p9a5',
         key: 'regen',
         name: 'regen-validator',
         rpc_service: "https://rpc-regen-ia.cosmosia.notional.ventures/",
         api_service: "https://api-regen-ia.cosmosia.notional.ventures/",
     },
-    'sifchain-validator': {
-        id: 23,
-        address: 'sif1083svrca4t350mphfv9x45wq9asrs60cdjc2u2',
-        key: 'sifchain',
-        name: 'sifchain-validator',
-        rpc_service: "https://rpc-sifchain-ia.cosmosia.notional.ventures/",
-        api_service: "https://api-sifchain-ia.cosmosia.notional.ventures/",
-    },
     'stargaze-validator': {
         id: 24,
         address: 'stars1v8yp5x5kfex4wep2pfuuyw68cn2lst3kmpmutg',
+        valAddr: 'starsvaloper1v8yp5x5kfex4wep2pfuuyw68cn2lst3ksl0gss',
         key: 'stargaze',
         name: 'stargaze-validator',
         rpc_service: "https://rpc-stargaze-ia.cosmosia.notional.ventures/",
@@ -620,6 +634,7 @@ module.exports.data = {
     'starname-validator': {
         id: 25,
         address: 'star1pdqlmncych8uzsfdnsptv7s0wpazc0rgf4xgk7',
+        valAddr: 'starvaloper1pdqlmncych8uzsfdnsptv7s0wpazc0rgv7zc6h',
         key: 'starname',
         name: 'starname-validator',
         rpc_service: "https://rpc-starname-ia.cosmosia.notional.ventures/",
@@ -628,6 +643,7 @@ module.exports.data = {
     'stride-validator': {
         id: 27,
         address: 'stride1kvwpcr45lh7wn53wp9ac42ypr3t8zjqyer5e3e',
+        valAddr: 'stridevaloper1kvwpcr45lh7wn53wp9ac42ypr3t8zjqy6ks9au',
         key: 'stride',
         name: 'stride-validator',
         rpc_service: "https://rpc-stride-ia.cosmosia.notional.ventures/",
@@ -636,6 +652,7 @@ module.exports.data = {
     'sentinel-validator': {
         id: 28,
         address: 'sent1083svrca4t350mphfv9x45wq9asrs60cn5p9hw',
+        valAddr: 'sentvaloper1083svrca4t350mphfv9x45wq9asrs60cv37gc8',
         key: 'sentinel',
         name: 'sentinel-validator',
         rpc_service: "https://rpc-sentinel-ia.cosmosia.notional.ventures/",
@@ -644,6 +661,7 @@ module.exports.data = {
     'umee-validator': {
         id: 29,
         address: 'umee1dmahqt84r9je3sqvljzjrttjj78cmrf39jndx6',
+        valAddr: 'umeevaloper1dmahqt84r9je3sqvljzjrttjj78cmrf39k5zhs',
         key: 'umee',
         name: 'umee-validator',
         rpc_service: "https://rpc-umee-ia.cosmosia.notional.ventures/",
@@ -652,6 +670,7 @@ module.exports.data = {
     'vidulum-validator': {
         id: 30,
         address: 'vdl16pu0t4yauhduaxvu3k29w539da5d2mfxm9fhm8',
+        valAddr: 'vdlvaloper16pu0t4yauhduaxvu3k29w539da5d2mfxqjdmjj',
         key: 'vidulum',
         name: 'vidulum-validator',
         rpc_service: "https://rpc-vidulum-ia.cosmosia.notional.ventures/",

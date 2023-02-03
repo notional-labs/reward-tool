@@ -26,6 +26,19 @@ const getRewards = async (rpc, address) => {
     }
 }
 
+const getCommision = async (rpc, address) => {
+    try {
+        const tendermint = await Tendermint34Client.connect(rpc)
+        const baseQuery = new QueryClient(tendermint)
+        const extension = setupDistributionExtension(baseQuery)
+        const res = await extension.distribution.validatorCommission(address)
+        return res
+    }
+    catch (e) {
+        throw e
+    }
+}
+
 module.exports.getRecords = async () => {
     const res = await graphqlReq({
         method: "POST",
@@ -80,8 +93,13 @@ module.exports.getAsset = async () => {
         for (let key in data) {
             try {
                 const rpc = rpcs[data[key].id]
+                assets[`${data[key].name}`] = {}
                 let res = await getRewards(rpc, data[key].address)
-                assets[`${data[key].name}`] = res
+                assets[`${data[key].name}`].reward = res
+                if (data[key].valAddr) {
+                    let res = await getCommision(rpc, data[key].valAddr)
+                    assets[`${data[key].name}`].commission = res.commission && res.commission.commission
+                }
             }
             catch (e) {
                 assets[`${data[key].name}`] = {}
