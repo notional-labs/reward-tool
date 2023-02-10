@@ -21,7 +21,8 @@ const getRecords = async () => {
                         data {
                             date,
                             rewards,
-                            total
+                            available_asset,
+                            total_asset
                         }
                     }
                 }
@@ -35,13 +36,27 @@ const port = 3002
 
 const formatData = (list) => {
     let formatList = []
-    list.forEach(e => {
-        formatList.unshift({
-            ...e,
-            rewards: JSON.parse(e.rewards)
-        })
-    });
-
+    if (list.length >= 2) {
+        for(let i = 0; i< list.length; i++) {
+            let change_in_24h = 0
+            if (i >= 1) {
+                change_in_24h = list[i].total_asset - list[i-1].total_asset
+            }
+            formatList.unshift({
+                ...list[i],
+                rewards: JSON.parse(list[i].rewards),
+                change_in_24h: change_in_24h
+            })
+        }
+    }
+    else {
+        list.forEach(e => {
+            formatList.unshift({
+                ...e,
+                rewards: JSON.parse(e.rewards)
+            })
+        });
+    }
     return formatList
 }
 
