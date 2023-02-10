@@ -708,6 +708,29 @@ module.exports.data = {
         rpc_service: "https://rpc-osmosis-ia.cosmosia.notional.ventures/",
         api_service: "https://api-osmosis-ia.cosmosia.notional.ventures/",
     },
+    'evmos-airdrop': {
+        id: 9,
+        address: 'evmos1ckdsxugdxcja2mpc86uguzgvlknkctq275y6ne',
+        key: 'evmos',
+        name: 'evmos-airdrop',
+        rpc_service: "https://rpc-evmos-ia.cosmosia.notional.ventures/",
+        api_service: "https://api-evmos-ia.cosmosia.notional.ventures/",
+    },
+    'evmos-first-month-payment': {
+        id: 9,
+        address: 'evmos1wvp5vmcutt7meqspuykqkgsthvpea3u4djasw0',
+        name: 'evmos-first-month-payment',
+        rpc_service: "https://rpc-evmos-ia.cosmosia.notional.ventures/",
+        api_service: "https://api-evmos-ia.cosmosia.notional.ventures/",
+    },
+    'evmos-second-month-payment': {
+        id: 9,
+        address: 'evmos1gthxyuc9nj92n7ggye6k0ufacmmd42ewqcdum4',
+        key: 'evmos',
+        name: 'evmos-second-month-payment',
+        rpc_service: "https://rpc-evmos-ia.cosmosia.notional.ventures/",
+        api_service: "https://api-evmos-ia.cosmosia.notional.ventures/",
+    },
 }
 
 module.exports.denomToId = {

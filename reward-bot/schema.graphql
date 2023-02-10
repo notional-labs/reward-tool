@@ -1,7 +1,8 @@
 type Record {
     date: String!
     rewards: String!
-    total: Int!
+    total_asset: Float!
+    available_asset: Int!
 }
 
 type Query {

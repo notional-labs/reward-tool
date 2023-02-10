@@ -1,4 +1,4 @@
-const { setupDistributionExtension, QueryClient } = require("@cosmjs/stargate");
+const { setupDistributionExtension, QueryClient, setupStakingExtension } = require("@cosmjs/stargate");
 const { Tendermint34Client } = require("@cosmjs/tendermint-rpc");
 const { chainData, data } = require('../storage/chainData')
 const axios = require('axios')
@@ -39,6 +39,19 @@ const getCommision = async (rpc, address) => {
     }
 }
 
+const getSelfStake = async (rpc,address) => {
+    try {
+        const tendermint = await Tendermint34Client.connect(rpc)
+        const baseQuery = new QueryClient(tendermint)
+        const extension = setupStakingExtension(baseQuery)
+        const res = await extension.staking.delegatorDelegations(address)
+        return res
+    }
+    catch (e) {
+        throw e
+    }
+}
+
 module.exports.getRecords = async () => {
     const res = await graphqlReq({
         method: "POST",
@@ -50,7 +63,8 @@ module.exports.getRecords = async () => {
                             id,
                             date,
                             rewards,
-                            total
+                            total_asset,
+                            available_asset
                         }
                     }
                 }
@@ -60,7 +74,7 @@ module.exports.getRecords = async () => {
     return res.data
 }
 
-module.exports.createRecords = async (dataString, total) => {
+module.exports.createRecords = async (dataString, total, avaliable) => {
     const current = new Date(Date.now())
     const res = await graphqlReq({
         method: "POST",
@@ -71,12 +85,14 @@ module.exports.createRecords = async (dataString, total) => {
                         data: {
                             date: "${current.toString()}",
                             rewards: """${dataString}""",
-                            total: ${total}
+                            total_asset: ${total},
+                            available_asset: ${avaliable}
                         }
                     ) {
                             date,
                             rewards,
-                            total
+                            total_asset,
+                            available_asset
                     }
                 }
               `
@@ -100,6 +116,8 @@ module.exports.getAsset = async () => {
                     let res = await getCommision(rpc, data[key].valAddr)
                     assets[`${data[key].name}`].commission = res.commission && res.commission.commission
                 }
+                let stakingRes = await getSelfStake(rpc, data[key].address)
+                assets[`${data[key].name}`].stake_amount = stakingRes.delegationResponses
             }
             catch (e) {
                 assets[`${data[key].name}`] = {}
