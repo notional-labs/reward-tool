@@ -731,6 +731,14 @@ module.exports.data = {
         rpc_service: "https://rpc-evmos-ia.cosmosia.notional.ventures/",
         api_service: "https://api-evmos-ia.cosmosia.notional.ventures/",
     },
+    'evmos-third-month-payment': {
+        id: 9,
+        address: 'evmos178pgzge6t6ldvzq04xfznxag63rvlaftnfc6mp',
+        key: 'evmos',
+        name: 'evmos-third-month-payment',
+        rpc_service: "https://rpc-evmos-ia.cosmosia.notional.ventures/",
+        api_service: "https://api-evmos-ia.cosmosia.notional.ventures/",
+    },
 }
 
 module.exports.denomToId = {
