@@ -85,7 +85,9 @@ const getRewardsDiff = async (reward_1, reward_2) => {
             const id = denomToId[k]
             tokenChangeList[k] = {}
             const rate = usdRates[id] ? (usdRates[id].usd && usdRates[id].usd.value) ? 0 : usdRates[id].usd || 0 : 0
-            const diff = tokenList_1[key][k] - tokenList_2[key][k]
+            const amt_1 = tokenList_1[key] ? tokenList_1[key][k] ? tokenList_1[key][k] : 0 : 0
+            const amt_2 = tokenList_2[key] ? tokenList_2[key][k] ? tokenList_2[key][k] : 0 : 0
+            const diff = amt_1 - amt_2
             tokenChangeList[k].amount = diff
             tokenChangeList[k].usd = (diff * rate).toFixed(2)
             changeSum += diff * rate
