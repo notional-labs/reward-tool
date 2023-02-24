@@ -101,6 +101,7 @@ module.exports.formatReward = async (rewards) => {
                 }
             })
             newRewards[key] = {
+                address: data[key].address,
                 total: newTotal,
             }
         }
