@@ -80,7 +80,7 @@ const getRewardsDiff = async (reward_1, reward_2) => {
     let changeSum = 0
     const tokenList_1 = getTotal(reward_1)
     const tokenList_2 = getTotal(reward_2)
-    console.log(fetchCounter, price)
+    console.log(fetchCounter)
     if ((new Date().getMinutes() - fetchCounter) % 2 === 0) {
         price = await axios.get(queryString)
         fetchCounter = Date.now()
