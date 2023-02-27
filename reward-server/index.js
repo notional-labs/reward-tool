@@ -73,17 +73,17 @@ const formatData = async (list) => {
     return formatList
 }
 
-var fetchCounter = Date.now() / 1000, price
+var fetchCounter = Math.floor(Date.now() / 1000), price
 
 const getRewardsDiff = async (reward_1, reward_2) => {
     let changeList = {}
     let changeSum = 0
     const tokenList_1 = getTotal(reward_1)
     const tokenList_2 = getTotal(reward_2)
-    console.log(fetchCounter)
-    if ((Date.now() / 1000 - fetchCounter) % 120 === 0) {
+    console.log(fetchCounter, price)
+    if ((Math.floor(Date.now() / 1000) - fetchCounter) % 120 === 0 || price === null) {
         price = await axios.get(queryString)
-        fetchCounter = Date.now() / 1000
+        fetchCounter = Math.floor(Date.now() / 1000)
     }
     const usdRates = price.data
     for (let key in tokenList_1) {
