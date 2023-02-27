@@ -140,6 +140,7 @@ app.get('/', async (_, res) => {
         }
     }
     catch (e) {
+        console.log(e.message)
         res.status(400).send({
             err: e.message
         })
