@@ -73,14 +73,15 @@ const formatData = async (list) => {
     return formatList
 }
 
-var fetchCounter = Date.now(), price
+var fetchCounter = Date.now().getMinutes(), price
 
 const getRewardsDiff = async (reward_1, reward_2) => {
     let changeList = {}
     let changeSum = 0
     const tokenList_1 = getTotal(reward_1)
     const tokenList_2 = getTotal(reward_2)
-    if (((Date.now() - fetchCounter) / 1000) % 120 === 0) {
+    console.log(fetchCounter, price)
+    if ((Date.now().getMinutes() - fetchCounter) % 2 === 0) {
         price = await axios.get(queryString)
         fetchCounter = Date.now()
     }
