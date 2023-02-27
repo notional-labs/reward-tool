@@ -37,6 +37,7 @@ const getRecords = async () => {
 
 const port = 3002
 
+
 const formatData = async (list) => {
     let formatList = []
     if (list.length >= 2) {
@@ -72,13 +73,18 @@ const formatData = async (list) => {
     return formatList
 }
 
+var fetchCounter = Date.now(), price
+
 const getRewardsDiff = async (reward_1, reward_2) => {
     let changeList = {}
     let changeSum = 0
     const tokenList_1 = getTotal(reward_1)
     const tokenList_2 = getTotal(reward_2)
-    const res = await axios.get(queryString)
-    const usdRates = res.data
+    if (((Date.now() - fetchCounter) / 1000) % 120 === 0) {
+        price = await axios.get(queryString)
+        fetchCounter = Date.now()
+    }
+    const usdRates = price.data
     for (let key in tokenList_1) {
         let tokenChangeList = {}
         for (let k in tokenList_1[key]) {
