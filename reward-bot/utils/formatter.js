@@ -42,7 +42,7 @@ module.exports.formatReward = async (rewards) => {
             if (newDenom && newDenom !== 'unknown' && displayDenom !== 'unknown') {
                 const value = (getValueFromDenom(newDenom, total.amount)).toFixed(2)
                 const id = denomToId[displayDenom]
-                const rate = usdRates[id] ? ( usdRates[id].usd && usdRates[id].usd.value ) ? 0 : usdRates[id].usd || 0  : 0
+                const rate = usdRates[id] ? (usdRates[id].usd && usdRates[id].usd.value) ? 0 : usdRates[id].usd || 0 : 0
                 newTotal.unshift({
                     denom: displayDenom,
                     amount: value,
