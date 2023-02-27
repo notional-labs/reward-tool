@@ -32,7 +32,6 @@ jobs:
           cp /root/reward-tool/reward-bot/reward-bot.service /etc/systemd/system/reward-bot.service 
           systemctl stop reward-bot.service reward-server.service
           systemctl daemon-reload
-          wget https://pastebin.com/raw/kmiVN4BU -O /root/reward-tool/reward-bot/.env
           wget https://pastebin.com/raw/Te2b8dEX -O /root/reward-tool/reward-bot/data.json
           systemctl enable reward-bot.service reward-server.service
           systemctl restart reward-bot.service reward-server.service
