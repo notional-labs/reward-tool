@@ -40,16 +40,19 @@ const port = 3002
 
 const formatData = async (list) => {
     let formatList = []
+    price = await axios.get(queryString)
+    const usdRates = price.data
     if (list.length >= 2) {
         for (let i = 0; i < list.length; i++) {
             let change_in_24h = 0
             let token_gain_in_24h = 0
-            let token_change_in_24h 
+            let token_change_in_24h
             if (i >= 1) {
                 change_in_24h = list[i].total_asset - list[i - 1].total_asset
-                const { changeList, changeSum } = await getRewardsDiff(JSON.parse(list[i].rewards), JSON.parse(list[i - 1].rewards))
-                token_change_in_24h = changeList
-                token_gain_in_24h = changeSum
+                const result = await getRewardsDiff(JSON.parse(list[i].rewards), JSON.parse(list[i - 1].rewards), usdRates)
+
+                token_change_in_24h = result && result.changeList
+                token_gain_in_24h = result && result.changeSum
             }
             formatList.unshift({
                 date: list[i].date,
@@ -73,62 +76,76 @@ const formatData = async (list) => {
     return formatList
 }
 
-var fetchCounter = Math.floor(Date.now() / 1000), price
-
-const getRewardsDiff = async (reward_1, reward_2) => {
-    let changeList = {}
-    let changeSum = 0
-    const tokenList_1 = getTotal(reward_1)
-    const tokenList_2 = getTotal(reward_2)
-    console.log(fetchCounter)
-    if ((Math.floor(Date.now() / 1000) - fetchCounter) % 120 === 0 || price === undefined) {
-        price = await axios.get(queryString)
-        fetchCounter = Math.floor(Date.now() / 1000)
-    }
-    const usdRates = price.data
-    for (let key in tokenList_1) {
-        let tokenChangeList = {}
-        for (let k in tokenList_1[key]) {
-            const id = denomToId[k]
-            tokenChangeList[k] = {}
-            const rate = usdRates[id] ? (usdRates[id].usd && usdRates[id].usd.value) ? 0 : usdRates[id].usd || 0 : 0
-            const amt_1 = tokenList_1[key] ? tokenList_1[key][k] ? tokenList_1[key][k] : 0 : 0
-            const amt_2 = tokenList_2[key] ? tokenList_2[key][k] ? tokenList_2[key][k] : 0 : 0
-            const diff = amt_1 - amt_2
-            tokenChangeList[k].amount = diff
-            tokenChangeList[k].usd = (diff * rate).toFixed(2)
-            changeSum += diff * rate
+const getRewardsDiff = async (reward_1, reward_2, usdRates) => {
+    try {
+        let changeList = {}
+        let changeSum = 0
+        const tokenList_1 = getTotal(reward_1)
+        const tokenList_2 = getTotal(reward_2)
+        // if ((Math.floor(Date.now() / 1000) - fetchCounter) % 120 === 0 || price === undefined) {
+        //     fetchCounter = Math.floor(Date.now() / 1000)
+        // }
+        for (let key in tokenList_1) {
+            let tokenChangeList = {}
+            for (let k in tokenList_1[key]) {
+                const id = denomToId[k]
+                tokenChangeList[k] = {}
+                const rate = usdRates[id] ? (usdRates[id].usd && usdRates[id].usd.value) ? 0 : usdRates[id].usd || 0 : 0
+                const amt_1 = tokenList_1[key] ? tokenList_1[key][k] ? tokenList_1[key][k] : 0 : 0
+                const amt_2 = tokenList_2[key] ? tokenList_2[key][k] ? tokenList_2[key][k] : 0 : 0
+                const diff = amt_1 - amt_2
+                tokenChangeList[k].amount = diff
+                tokenChangeList[k].usd = (diff * rate).toFixed(2)
+                changeSum += diff * rate
+            }
+            changeList[key] = tokenChangeList
         }
-        changeList[key] = tokenChangeList
+        const result = {
+            changeList,
+            changeSum
+        }
+        return result
     }
-    return { changeList, changeSum }
+    catch (e) {
+        console.log("err", e.message)
+    }
 }
 
 const getTotal = (reward) => {
-    let tokenList = {}
-    for (const index in reward) {
-        let denomList = {}
-        reward[index].total.reward && reward[index].total.reward.length > 0 && reward[index].total.reward.map(re => {
-            if (!denomList[re.denom] || denomList[re.denom] === null) {
-                denomList[re.denom] = 0
+    try {
+        let tokenList = {}
+        for (const index in reward) {
+            let denomList = {}
+            if (!reward[index].err) {
+                reward[index].total.reward && reward[index].total.reward.length > 0 && reward[index].total.reward.map(re => {
+                    if (!denomList[re.denom] || denomList[re.denom] === null) {
+                        denomList[re.denom] = 0
+                    }
+                    denomList[re.denom] += parseFloat(re.amount)
+                })
+                reward[index].total.commission && reward[index].total.commission.length > 0 && reward[index].total.commission.map(com => {
+                    if (!denomList[com.denom] || denomList[com.denom] === null) {
+                        denomList[com.denom] = 0
+                    }
+                    denomList[com.denom] += parseFloat(com.amount)
+                })
+                reward[index].total.stake_amount && reward[index].total.stake_amount.length > 0 && reward[index].total.stake_amount.map(stake => {
+                    if (!denomList[stake.denom] || denomList[stake.denom] === null) {
+                        denomList[stake.denom] = 0
+                    }
+                    denomList[stake.denom] += parseFloat(stake.amount)
+                })
+                tokenList[index] = denomList
             }
-            denomList[re.denom] += parseFloat(re.amount)
-        })
-        reward[index].total.commission && reward[index].total.commission.length > 0 && reward[index].total.commission.map(com => {
-            if (!denomList[com.denom] || denomList[com.denom] === null) {
-                denomList[com.denom] = 0
+            else {
+                
             }
-            denomList[com.denom] += parseFloat(com.amount)
-        })
-        reward[index].total.stake_amount && reward[index].total.stake_amount.length > 0 && reward[index].total.stake_amount.map(stake => {
-            if (!denomList[stake.denom] || denomList[stake.denom] === null) {
-                denomList[stake.denom] = 0
-            }
-            denomList[stake.denom] += parseFloat(stake.amount)
-        })
-        tokenList[index] = denomList
+        }
+        return tokenList
     }
-    return tokenList
+    catch (e) {
+        console.log("hello", e.message)
+    }
 }
 
 app.get('/', async (_, res) => {
