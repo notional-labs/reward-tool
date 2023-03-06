@@ -657,6 +657,14 @@ module.exports.data = {
         rpc_service: "https://rpc-osmosis-ia.cosmosia.notional.ventures/",
         api_service: "https://api-osmosis-ia.cosmosia.notional.ventures/",
     },
+    'osmosis-relayer-grant-2023/3/4/5': {
+        id: 18,
+        address: 'osmo1l8vcm5f2euwh6khkqm3j5k4hp2qq2wruwwlu5q',
+        key: 'osmosis',
+        name: 'osmosis-relayer-grant-2023/3/4/5',
+        rpc_service: "https://rpc-osmosis-ia.cosmosia.notional.ventures/",
+        api_service: "https://api-osmosis-ia.cosmosia.notional.ventures/",
+    },
     'evmos-airdrop': {
         id: 9,
         address: 'evmos1ckdsxugdxcja2mpc86uguzgvlknkctq275y6ne',
