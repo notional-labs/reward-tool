@@ -19,7 +19,6 @@ const getRewards = async (rpc, address) => {
         const baseQuery = new QueryClient(tendermint)
         const extension = setupDistributionExtension(baseQuery)
         const res = await extension.distribution.delegationTotalRewards(address)
-        console.log("delegationTotalRewards", res)
         return res
     }
     catch (e) {
