@@ -21,7 +21,7 @@ class Bot {
         // if(this.checkNewMonth(currentDate)) {
         //     wipeData()
         // }
-        if (!this.checkNewDay(this.timeStamp)) {
+        if (this.checkNewDay(this.timeStamp)) {
             console.log("running...")
             let result = await getAsset()
             this.timeStamp = new Date(Date.now())
